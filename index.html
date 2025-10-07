@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Course Materials</title>
+  <style>
+    :root {
+      --bg: #0f172a;        /* slate-900 */
+      --panel: #111827;     /* gray-900 */
+      --panel-2: #1f2937;   /* gray-800 */
+      --text: #e5e7eb;      /* gray-200 */
+      --muted: #9ca3af;     /* gray-400 */
+      --accent: #60a5fa;    /* blue-400 */
+      --chip: #374151;      /* gray-700 */
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      background: radial-gradient(1200px 800px at 20% -10%, #1e293b 0%, #0b1220 45%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      padding: 32px 20px 16px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+    header p { margin: 0; color: var(--muted); }
+    .container {
+      max-width: 980px;
+      margin: 24px auto 48px;
+      padding: 0 16px;
+    }
+    .toolbar {
+      background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+      padding: 14px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      position: sticky;
+      top: 12px;
+      z-index: 5;
+      backdrop-filter: blur(8px);
+    }
+    .toolbar input[type="search"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #2b3443;
+      background: #0b1220;
+      color: var(--text);
+      outline: none;
+    }
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: var(--chip);
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid #2b3443;
+    }
+    .chip[data-active="true"] {
+      background: #0b1220;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(96,165,250,.25) inset;
+    }
+
+    .section {
+      margin-top: 22px;
+      border-radius: var(--radius);
+      overflow: clip;
+      border: 1px solid #1f2937;
+    }
+    .section summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 16px 18px;
+      background: #0b1220;
+      border-bottom: 1px solid #1f2937;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+    .section summary::-webkit-details-marker { display: none; }
+    .section .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+      padding: 14px;
+      background: linear-gradient(180deg, #0b1220, #0c1426);
+    }
+
+    .card {
+      border: 1px solid #223049;
+      border-radius: 14px;
+      padding: 12px;
+      background: #0b1220;
+      display: grid;
+      gap: 8px;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .card:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(8, 30, 60, .5);
+    }
+    .meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .meta .type { font-weight: 700; color: var(--text); }
+    .card h3 {
+      margin: 0;
+      font-size: 1.02rem;
+    }
+    .links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid #2b3443;
+      background: #0b1220;
+      color: var(--text);
+      font-size: 0.92rem;
+      transition: border-color .12s ease, transform .06s ease;
+      will-change: transform;
+    }
+    .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .pill {
+      font-size: 0.8rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px dashed #334155;
+      color: var(--muted);
+    }
+    footer {
+      max-width: 980px;
+      margin: 32px auto 80px;
+      padding: 0 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Sicurezza dell'Informazione</h1>
+    <p>Materiale didattico</p>
+  </header>
+
+  <div class="container">
+    <!-- Toolbar: search + quick filters -->
+    <div class="toolbar" role="region" aria-label="Filters">
+      <input id="search" type="search" placeholder="Ricerca per titolo o formato (pdf o pptx)" aria-label="Search materials" />
+      <div class="chips" aria-label="Type filter">
+        <button class="chip" data-filter="all" data-active="true">Tutti</button>
+        <button class="chip" data-filter="pdf">PDF</button>
+        <button class="chip" data-filter="pptx">PPTX</button>
+      </div>
+    </div>
+
+    <!-- Informazioni Generali -->
+    <details class="section" open>
+      <summary>0. Informazioni Generali</summary>
+      <div class="grid">
+        <!-- CARD TEMPLATE (copy and edit) -->
+        <article class="card" data-type="pdf" data-week="1" data-tags="informazioni generali pdf">
+          <div class="meta"><span class="type">PDF</span></div>
+          <div class="links">
+            <!-- IMPORTANT: target="_blank" + rel="noopener noreferrer" -->
+            <a class="btn" href="pdfs/0. Informazioni Generali.pdf" download>Download</a>
+          </div>
+        </article>
+
+        <article class="card" data-type="pptx" data-week="1" data-tags="informazioni generali pptx">
+          <div class="meta"><span class="type">PPTX</span></div>
+          <div class="links">
+            <a class="btn" href="pptxs/0. Informazioni Generali.pptx" download>Download</a>
+          </div>
+        </article>
+      </div>
+    </details>
+
+    <!-- Informazioni Generali -->
+    <details class="section" open>
+      <summary>1. Introduzione alla sicurezza (dell'informazione)</summary>
+      <div class="grid">
+        <!-- CARD TEMPLATE (copy and edit) -->
+        <article class="card" data-type="pdf" data-week="1" data-tags="Introduzione alla sicurezza pdf">
+          <div class="meta"><span class="type">PDF</span></div>
+          <div class="links">
+            <!-- IMPORTANT: target="_blank" + rel="noopener noreferrer" -->
+            <a class="btn" href="pdfs/1. Introduzione.pdf" download>Download</a>
+          </div>
+        </article>
+
+        <article class="card" data-type="pptx" data-week="1" data-tags="Introduzione alla sicurezza pptx">
+          <div class="meta"><span class="type">PPTX</span></div>
+          <div class="links">
+            <a class="btn" href="pptxs/1. Introduzione.pptx" download>Download</a>
+          </div>
+        </article>
+      </div>
+    </details>
+
+    <!-- Week 2 -->
+    <!-- <details class="section">
+      <summary>Week 2 — Fundamentals</summary>
+      <div class="grid">
+        <article class="card" data-type="pdf" data-week="2" data-tags="reading fundamentals">
+          <div class="meta"><span class="type">PDF</span> <span class="pill">Week 2</span></div>
+          <h3>Reading Pack</h3>
+          <div class="links">
+            <a class="btn" href="https://example.com/materials/week2-reading.pdf" target="_blank" rel="noopener noreferrer">Open</a>
+            <a class="btn" href="https://example.com/materials/week2-reading.pdf" download>Download</a>
+          </div>
+        </article>
+
+        <article class="card" data-type="pptx" data-week="2" data-tags="slides fundamentals">
+          <div class="meta"><span class="type">PPTX</span> <span class="pill">Week 2</span></div>
+          <h3>Lecture Slides</h3>
+          <div class="links">
+            <a class="btn" href="https://example.com/materials/week2-lecture.pptx" target="_blank" rel="noopener noreferrer">Open</a>
+            <a class="btn" href="https://example.com/materials/week2-lecture.pptx" download>Download</a>
+          </div>
+        </article>
+      </div>
+    -->
+    </details>
+  </div>
+
+  <footer>
+  </footer>
+
+  <script>
+    // Ensure all resource links open in a brand-new tab safely.
+    document.querySelectorAll('a.btn[href]').forEach(a => {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+    });
+
+    // Quick filter chips (all / pdf / pptx)
+    const chips = document.querySelectorAll('.chip');
+    const cards = [...document.querySelectorAll('.card')];
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.dataset.active = "false");
+        chip.dataset.active = "true";
+        const f = chip.dataset.filter;
+        cards.forEach(card => {
+          const type = card.dataset.type;
+          card.classList.toggle('hidden', !(f === 'all' || f === type));
+        });
+      });
+    });
+
+    // Simple search across title + tags + week number
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      cards.forEach(card => {
+        const title = card.querySelector('h3')?.textContent.toLowerCase() ?? '';
+        const tags = (card.dataset.tags || '').toLowerCase();
+        const week = (card.dataset.week || '').toLowerCase();
+        const hit = title.includes(q) || tags.includes(q) || week.includes(q);
+        card.classList.toggle('hidden', !hit);
+      });
+    });
+  </script>
+</body>
+</html>
